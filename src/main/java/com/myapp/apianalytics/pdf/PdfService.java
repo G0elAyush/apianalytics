@@ -230,10 +230,10 @@ public class PdfService {
 			success = success+row.getSuccess();
 			rejection = rejection + row.getRejections();
 			total = total + row.getTotal();
-			addRow(table, 1,   row.getSourceSystem(),String.valueOf(row.getSuccess()),String.valueOf(row.getRejections()),String.valueOf(row.getTotal()));
+			addRow(table, 1,   row.getSourceSystem(),String.format("%,d",row.getSuccess()),String.format("%,d",row.getRejections()),String.format("%,d",row.getTotal()));
 			if(row.getApis() != null) {
 				for(SourceUsage subRow :row.getApis()) {
-					addRow(table, 2,   subRow.getApi(),String.valueOf(subRow.getSuccess()),String.valueOf(subRow.getRejections()),String.valueOf(subRow.getTotal()));
+					addRow(table, 2,   subRow.getApi(),String.format("%,d",subRow.getSuccess()),String.format("%,d",subRow.getRejections()),String.format("%,d",subRow.getTotal()));
 					
 				}
 				
@@ -241,7 +241,7 @@ public class PdfService {
 			
 		    System.out.println(entry.getKey() + "/" + entry.getValue());
 		}
-		addTableFooter(table,  "Total",String.valueOf(success),String.valueOf(rejection),String.valueOf(total));
+		addTableFooter(table,  "Total",String.format("%,d",success),String.format("%,d",rejection),String.format("%,d",total));
 		document.add(table);
 
 	}
@@ -254,7 +254,7 @@ public class PdfService {
 		addTableHeader(table,  "#","Client","Success Count","Fail Count");
 		
 		for(ClientUsageData row : rows) {
-			addRow(table, row.getRow_num(),row.getCustomer_id(),row.getSuccess_count(),row.getFail_count());
+			addRow(table, row.getRow_num(),row.getCustomer_id(),String.format("%,d",Long.parseLong(row.getSuccess_count())),String.format("%,d",Long.parseLong(row.getFail_count())));
 		}
 		
 		table.setBorder(new SolidBorder(2f));
