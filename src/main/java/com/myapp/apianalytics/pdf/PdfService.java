@@ -233,13 +233,9 @@ public class PdfService {
 			addRow(table, 1,   row.getSourceSystem(),String.format("%,d",row.getSuccess()),String.format("%,d",row.getRejections()),String.format("%,d",row.getTotal()));
 			if(row.getApis() != null) {
 				for(SourceUsage subRow :row.getApis()) {
-					addRow(table, 2,   subRow.getApi(),String.format("%,d",subRow.getSuccess()),String.format("%,d",subRow.getRejections()),String.format("%,d",subRow.getTotal()));
-					
-				}
-				
+					addRow(table, 2,   subRow.getApi(),String.format("%,d",subRow.getSuccess()),String.format("%,d",subRow.getRejections()),String.format("%,d",subRow.getTotal()));	
+				}	
 			}
-			
-		    System.out.println(entry.getKey() + "/" + entry.getValue());
 		}
 		addTableFooter(table,  "Total",String.format("%,d",success),String.format("%,d",rejection),String.format("%,d",total));
 		document.add(table);
