@@ -248,7 +248,7 @@ public class PdfService {
 
 	public void addPageForClientUsage(List<ClientUsageData> rows) throws Exception{
 		
-		setPageTitle("Top client for Limit Check");
+		setPageTitle("Top client for API1");
 		Table table = inititaliseTable(pdf.getDefaultPageSize().getWidth() * 0.915f,2,1f,4.6f,2.2f,2.2f);
 		
 		addTableHeader(table,  "#","Client","Success Count","Fail Count");
