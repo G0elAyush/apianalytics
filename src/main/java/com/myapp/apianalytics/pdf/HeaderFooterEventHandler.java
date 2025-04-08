@@ -81,7 +81,7 @@ public class HeaderFooterEventHandler implements IEventHandler {
        
 
         // Add Footer (Bottom of the Page)
-        Paragraph footer1 = new Paragraph(""+pdfDocument.getPageNumber(page) +"\t"+"TCS Confidential")
+        Paragraph footer1 = new Paragraph(""+pdfDocument.getPageNumber(page) +"\t"+"ABC Confidential")
                 .setFontSize(11)
                 .setFontColor(null)
                 .setTextAlignment(TextAlignment.LEFT);
@@ -89,7 +89,8 @@ public class HeaderFooterEventHandler implements IEventHandler {
  
         canvas.showTextAligned(footer1, page.getPageSize().getLeft() +36, page.getPageSize().getBottom() + 18, TextAlignment.LEFT);
         
-        Paragraph footer2 = new Paragraph("Turning our Technology to your Advantage \u2122" )
+        
+        Paragraph footer2 = new Paragraph("Lorem Ipsum is simply dummy text of the  \u2122" )
                 .setFontSize(12)
                 .setTextAlignment(TextAlignment.RIGHT);
         canvas.showTextAligned(footer2, page.getPageSize().getRight() -50, page.getPageSize().getBottom() + 18, TextAlignment.RIGHT);
