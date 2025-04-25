@@ -25,6 +25,8 @@ public class ReportService {
 		pdfService.addPageForSourceBaseMetric(dataService.fetchSourceBaseMetric());
 		pdfService.pageBreak();
 		pdfService.addPageForClientUsage(dataService.fetchClientUsageData());
+		pdfService.pageBreak();
+		pdfService.addPageForChart("CMO Success");
 		
 		pdfService.close();
 		

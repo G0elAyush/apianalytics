@@ -83,7 +83,7 @@ public class HeaderFooterEventHandler implements IEventHandler {
         // Add Footer (Bottom of the Page)
         Paragraph footer1 = new Paragraph(""+pdfDocument.getPageNumber(page) +"\t"+"ABC Confidential")
                 .setFontSize(11)
-                .setFontColor(null)
+               // .setFontColor(null)
                 .setTextAlignment(TextAlignment.LEFT);
         // Positioning the footer at the bottom of the page
  

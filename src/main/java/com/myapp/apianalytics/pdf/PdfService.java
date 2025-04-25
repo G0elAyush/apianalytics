@@ -4,6 +4,9 @@
 package com.myapp.apianalytics.pdf;
 
 
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -20,20 +23,27 @@ import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
+import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.DashedBorder;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.AreaBreakType;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
+import com.myapp.apianalytics.chart.ApiChart;
 import com.myapp.apianalytics.data.ClientUsageData;
 import com.myapp.apianalytics.data.SourceUsage;
+import com.orsonpdf.PDFDocument;
+import com.orsonpdf.PDFGraphics2D;
+import com.orsonpdf.Page;
 
 /**
  * 
@@ -64,6 +74,9 @@ public class PdfService {
 
 	@Autowired
 	private PdfDocument pdf;
+	
+	@Autowired
+	private ApiChart chart;
 
 	@Autowired
 	private IEventHandler handler;
@@ -132,6 +145,7 @@ public class PdfService {
 		Stream.of(headers)
 		.forEach(columnTitle -> {
 			Cell header = new Cell();
+			
 			header.setBold();
 			header.setFontSize(14f);
 			header.setBackgroundColor(new DeviceRgb(210 , 225, 250));
@@ -257,7 +271,25 @@ public class PdfService {
 		document.add(table);
 	}
 	
+	public void addPageForChart(String chartOf) throws Exception{
+		
+		PDFDocument doc = new PDFDocument();
+		Rectangle2D bounds = new Rectangle(0,0,800, 500);
+		Page page = doc.createPage(bounds);
+		PDFGraphics2D g2 = page.getGraphics2D();
+		
+		chart.getChartForCMOSuccess().draw(g2, bounds);
+		
 	
+		
+		 PdfReader reader = new PdfReader(new ByteArrayInputStream(doc.getPDFBytes()));
+	        PdfDocument chartDoc = new PdfDocument(reader);
+	        PdfFormXObject chart = chartDoc.getFirstPage().copyAsFormXObject(pdf);
+	        Image chartImage = new Image(chart);
+	        document.add(chartImage);
+	        
+	        chartDoc.close();
+	}
 	
 
 	
